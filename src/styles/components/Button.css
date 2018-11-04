@@ -1,0 +1,18 @@
+.box {
+    background-color: grey;
+    border: none;
+    color: white;
+    padding: 20px 60px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 80px;
+    cursor: pointer;
+    border-radius: 12px;
+}
+.box.green {
+    background-color: green;
+    padding: 20px 70px;
+
+}

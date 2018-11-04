@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StarRating from '../StarRating';
+import Button from './Button'
 
 const MovieCard = (props) => (
     <div className="movie-card">
@@ -9,7 +10,9 @@ const MovieCard = (props) => (
             <div className="card-body">
                 <h4 className="card-title">{props.movie.title}</h4>
                 {/*<p className="text-justify" style={{fontSize: '14px'}}>{props.movie.overview}</p>*/}
-            </div>
+                <Button/>
+
+                </div>
             <div className="card-footer">
                 <div className="clearfix">
                     <div className="float-left mt-1">
