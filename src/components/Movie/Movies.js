@@ -23,9 +23,22 @@ export default class Movies extends Component {
         this.setState(() => ({movies: MoviesData.getMovies()}));
     }
 
+    toggleSelected = (id, key) => {
+        let temp = JSON.parse(JSON.stringify(this.state[key]))
+        temp[id].selected = !temp[id].selected
+        this.setState({
+            [key]: temp
+        })
+    }
 
-
-
+    resetThenSet = (id, key) => {
+        let temp = JSON.parse(JSON.stringify(this.state[key]))
+        temp.forEach(item => item.selected = false);
+        temp[id].selected = true;
+        this.setState({
+            [key]: temp
+        })
+    }
 
 
     handlePageChange = page => {
@@ -59,7 +72,12 @@ export default class Movies extends Component {
                         <MovieList movies={this.state.movies}/>
                     </div>
                     <div className="col-sm-4">
-                        <h2>Wish to watch:{this.props.count}</h2>
+                        <WishListItem
+                            titleHelper="movie"
+                            title="Will watch:"
+                            list={this.state.movies}
+                            toggleItem={this.toggleSelected}
+                        />
                     </div>
                 </div>
 

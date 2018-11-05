@@ -15,7 +15,7 @@ import React, {Component} from 'react';
             boxClass.push('green');
         }
         return(
-            <div className={boxClass.join(' ')} onClick={this.toggle.bind(this)}>{this.state.addClass ? "Watched" : "Unwatched"}</div>
+            <div className={boxClass.join(' ')} onClick={this.toggle.bind(this)}>{this.state.addClass ? "Watched" : "Unwatch"}</div>
         );
     }
 }
