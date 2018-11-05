@@ -20,7 +20,7 @@ const styles = {
 };
 
 const cropWidth = (rating) => {
-    return Math.floor(rating * width / 10);
+    return Math.floor(rating * width / 13);
 };
 
 const StarRating = (props) => {
