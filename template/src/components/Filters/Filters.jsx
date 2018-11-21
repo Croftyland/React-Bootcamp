@@ -1,5 +1,7 @@
 import React from "react";
-import SortBy from './SortBy'
+import SortBy from './SortBy';
+import PrimaryReleaseYear from './PrimaryReleaseYear';
+
 
 export default class Filters extends React.Component {
     render() {
@@ -14,6 +16,9 @@ export default class Filters extends React.Component {
                 <SortBy sort_by={sort_by}
                         onChangeFilters={onChangeFilters}
                 />
+                <PrimaryReleaseYear
+                primary_release_year={primary_release_year}
+                onChangeFilters={onChangeFilters}/>
                 <div className="btn-group">
                     <button type="button"
                             className="btn btn-light"
