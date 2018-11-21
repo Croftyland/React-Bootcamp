@@ -8,11 +8,15 @@ export default class App extends React.Component {
 
         this.state = {
             filters: {
-                sort_by: "popularity.desc"
+                sort_by: "popularity.desc",
+                primary_release_year: "2018",
+                with_genres: []
             },
-            page: 1
+            page: 1,
+            total_pages: ""
         };
     }
+
     onChangeFilters = event => {
         const value = event.target.value;
         const name = event.target.name;
@@ -24,7 +28,7 @@ export default class App extends React.Component {
         }));
     };
 
-    onChangePage = page =>{
+    onChangePagination = ({ page, total_pages = this.state.total_pages }) => {
         this.setState({
          //page:page
          page

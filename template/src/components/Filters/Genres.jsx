@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { API_KEY_3, API_URL } from "../../api/api";
 
 class Genres extends React.Component {
@@ -37,7 +37,7 @@ class Genres extends React.Component {
     resetGenres = () => {
         this.props.onChangeFilters({
             target: {
-                name:"with_genres",
+                name: "with_genres",
                 value: []
             }
         })
@@ -76,4 +76,3 @@ class Genres extends React.Component {
 }
 
 export default Genres;
-
