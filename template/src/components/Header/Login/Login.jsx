@@ -3,11 +3,31 @@ import {API_URL, API_KEY_3} from "../../../api/api";
 
 export default class Login extends React.Component {
     sendPromises = () => {
-        // 1
-        fetch(`${API_URL}/authentication/token/new?api_key=${API_KEY_3}`)
-            .then(response => response.json())
-            .then(data => {
-                // 2
+        //добавить async
+        //1
+        const getRequestToken = () => {
+            return new Promise((resolve, reject) => {
+                fetch(`${API_URL}/authentication/token/new?api_key=${API_KEY_3}`)
+                    .then(response => {
+                        if (response.status < 400) {
+                            return response.json();
+                        } else {
+                            throw response;
+                        }
+                    })
+                    .then(data => {
+                        resolve(data);
+                    })
+                    .catch(response => {
+                        response.json().then(error => {
+                            reject(error);
+                        });
+                    });
+            });
+        };
+        //2
+        const validateWithLogin = body => {
+            return new Promise((resolve, reject) => {
                 fetch(
                     `${API_URL}/authentication/token/validate_with_login?api_key=${API_KEY_3}`,
                     {
@@ -16,35 +36,26 @@ export default class Login extends React.Component {
                         headers: {
                             "Content-type": "application/json"
                         },
-                        body: JSON.stringify({
-                            username: "crofty",
-                            password: "123",
-                            request_token: data.request_token
-                        })
+                        body: JSON.stringify(body)
                     }
                 )
-                    .then(response => response.json())
+                    .then(response => {
+                        if (response.status < 400) {
+                            return response.json();
+                        } else {
+                            throw response;
+                        }
+                    })
                     .then(data => {
-                        // 3
-                        fetch(
-                            `${API_URL}/authentication/session/new?api_key=${API_KEY_3}`,
-                            {
-                                method: "POST",
-                                mode: "cors",
-                                headers: {
-                                    "Content-type": "application/json"
-                                },
-                                body: JSON.stringify({
-                                    request_token: data.request_token
-                                })
-                            }
-                        )
-                            .then(response => response.json())
-                            .then(data => {
-                                console.log("session", data);
-                            });
+                        resolve(data);
+                    })
+                    .catch(response => {
+                        response.json().then(error => {
+                            reject(error);
+                        });
                     });
             });
+        };
     };
     render() {
         return (
