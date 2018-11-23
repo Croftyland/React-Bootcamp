@@ -1,7 +1,6 @@
 import React from "react";
-import {API_URL, API_KEY_3} from "../../../api/api";
-import {Modal, ModalBody} from 'reactstrap';
-import LoginForm from './LoginForm'
+import { Modal, ModalBody } from "reactstrap";
+import LoginForm from "./LoginForm";
 
 export default class Login extends React.Component {
     constructor() {
@@ -14,8 +13,9 @@ export default class Login extends React.Component {
     toggleModal = () => {
         this.setState(prevState => ({
             showModal: !prevState.showModal
-        }))
-    }
+        }));
+    };
+
     render() {
         return (
             <div>
@@ -27,8 +27,11 @@ export default class Login extends React.Component {
                     Login
                 </button>
                 <Modal isOpen={this.state.showModal} toggle={this.toggleModal}>
-                    <ModalBody >
-                        <LoginForm/>
+                    <ModalBody>
+                        <LoginForm
+                            updateUser={this.props.updateUser}
+                            updateSessionId={this.props.updateSessionId}
+                        />
                     </ModalBody>
                 </Modal>
             </div>
