@@ -4,6 +4,12 @@ import MoviesList from "./Movies/MoviesList";
 import Header from "./Header/Header";
 import { API_URL, API_KEY_3, fetchApi } from "../api/api";
 import Cookies from "universal-cookie";
+import { library } from "@fortawesome/fontawesome-svg-core"
+import { far } from "@fortawesome/free-regular-svg-icons"
+import { faHeart,faBookmark } from "@fortawesome/free-solid-svg-icons"
+
+
+library.add(faHeart,far,faBookmark);
 
 const cookies = new Cookies();
 
@@ -20,7 +26,8 @@ export default class App extends React.Component {
                 with_genres: []
             },
             page: 1,
-            total_pages: ""
+            total_pages: "",
+
         };
     }
 
