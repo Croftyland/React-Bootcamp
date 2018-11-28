@@ -4,6 +4,12 @@ import MoviesList from "./Movies/MoviesList";
 import Header from "./Header/Header";
 import { API_URL, API_KEY_3, fetchApi } from "../api/api";
 import Cookies from "universal-cookie";
+import { library } from "@fortawesome/fontawesome-svg-core"
+import { far } from "@fortawesome/free-regular-svg-icons"
+import { faHeart,faBookmark } from "@fortawesome/free-solid-svg-icons"
+
+
+library.add(faHeart,far,faBookmark);
 
 const cookies = new Cookies();
 
@@ -20,13 +26,15 @@ export default class App extends React.Component {
                 with_genres: []
             },
             page: 1,
-            total_pages: ""
+            total_pages: "",
+            showModal: false
+
         };
     }
 
-    updateUser = user => {
+    updateUser = (user, session_id) => {
         this.setState({
-            user
+            user, session_id
         });
     };
 
@@ -58,25 +66,33 @@ export default class App extends React.Component {
         });
     };
 
+    toggleModal = () => {
+        this.setState(prevState => ({
+            showModal: !prevState.showModal
+        }));
+    };
+
     componentDidMount() {
         const session_id = cookies.get("session_id");
         if (session_id) {
             fetchApi(
                 `${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`
             ).then(user => {
-                this.updateUser(user);
+                this.updateUser(user, session_id);
             });
         }
     }
 
     render() {
-        const { filters, page, total_pages, user } = this.state;
+        const { filters, page, total_pages, user, showModal, session_id } = this.state;
         return (
             <div>
                 <Header
                     user={user}
                     updateUser={this.updateUser}
                     updateSessionId={this.updateSessionId}
+                    toggleModal={this.toggleModal}
+                    showModal = {showModal}
                 />
                 <div className="container">
                     <div className="row mt-4">
@@ -98,7 +114,10 @@ export default class App extends React.Component {
                             <MoviesList
                                 filters={filters}
                                 page={page}
+                                toggleModal={this.toggleModal}
                                 onChangePagination={this.onChangePagination}
+                                session_id={session_id}
+                                user={user}
                             />
                         </div>
                     </div>
