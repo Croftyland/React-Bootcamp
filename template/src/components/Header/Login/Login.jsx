@@ -22,11 +22,11 @@ export default class Login extends React.Component {
                 <button
                     className="btn btn-success"
                     type="button"
-                    onClick={this.props.toggleModal}
+                    onClick={this.toggleModal}
                 >
                     Login
                 </button>
-                <Modal isOpen={this.props.showModal} toggle={this.props.toggleModal}>
+                <Modal isOpen={this.state.showModal} toggle={this.toggleModal}>
                     <ModalBody>
                         <LoginForm
                             updateUser={this.props.updateUser}
