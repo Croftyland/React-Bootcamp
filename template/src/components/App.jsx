@@ -27,14 +27,13 @@ export default class App extends React.Component {
             },
             page: 1,
             total_pages: "",
-            showModal: false
 
         };
     }
 
-    updateUser = (user, session_id) => {
+    updateUser = user => {
         this.setState({
-            user, session_id
+            user
         });
     };
 
@@ -66,33 +65,25 @@ export default class App extends React.Component {
         });
     };
 
-    toggleModal = () => {
-        this.setState(prevState => ({
-            showModal: !prevState.showModal
-        }));
-    };
-
     componentDidMount() {
         const session_id = cookies.get("session_id");
         if (session_id) {
             fetchApi(
                 `${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`
             ).then(user => {
-                this.updateUser(user, session_id);
+                this.updateUser(user);
             });
         }
     }
 
     render() {
-        const { filters, page, total_pages, user, showModal, session_id } = this.state;
+        const { filters, page, total_pages, user } = this.state;
         return (
             <div>
                 <Header
                     user={user}
                     updateUser={this.updateUser}
                     updateSessionId={this.updateSessionId}
-                    toggleModal={this.toggleModal}
-                    showModal = {showModal}
                 />
                 <div className="container">
                     <div className="row mt-4">
@@ -114,10 +105,7 @@ export default class App extends React.Component {
                             <MoviesList
                                 filters={filters}
                                 page={page}
-                                toggleModal={this.toggleModal}
                                 onChangePagination={this.onChangePagination}
-                                session_id={session_id}
-                                user={user}
                             />
                         </div>
                     </div>
